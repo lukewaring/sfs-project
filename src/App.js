@@ -1,40 +1,14 @@
 import React from 'react'
 import './App.css'
-import UsersTable from './UsersTable'
-import AddButton from './AddButton'
-import AddForm from './AddForm'
+import DebtsTable from './DebtsTable'
 
-class App extends React.Component {
-
-  state = {
-    users: []
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:3001/data')
-      .then(res => res.json())
-        .then(data => this.setState({ users: data }))
-  }
-
-  render() {
-    return (
-      <div className="App">
-
-        <div className="App-header">
-          <h2>Strategic Financial Solutions</h2>
-
-          <UsersTable users={this.state.users} />
-
-          <br></br>
-          
-          <AddButton />
-        </div>
-        
-        <AddForm />
-
+export default function App() {
+  return (
+    <div style={{ padding: '1.5rem' }} >
+      <div >
+        <h2 style={{ textAlign: 'center' }}>Strategic Financial Solutions</h2>
+        <DebtsTable />
       </div>
+    </div>
   )
-  }
 }
-
-export default App

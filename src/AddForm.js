@@ -1,7 +1,6 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-// import SaveIcon from '@material-ui/icons/Save'
 
 class AddForm extends React.Component {
     state = {
@@ -19,21 +18,21 @@ class AddForm extends React.Component {
     }
 
     handleSubmit = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         
-        fetch('http://localhost:3001/data', {
+        fetch('http://localhost:3001/debts', {
             method: 'POST',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
             body: JSON.stringify({ creditorName: this.state.creditorName, firstName: this.state.firstName, lastName: this.state.lastName, minPaymentPercentage: parseInt(this.state.minPaymentPercentage), balance: parseInt(this.state.balance) })    
         })
-            .then(res => res.json())
-                .then(json => console.log(json))
+        .then(res => res.json())
+        .then(json => console.log(json))
     }
 
     render() {
         return (
-            <div>
-                <h2>New Debt</h2>
+            <div style={{ textAlign: 'center' }}>
+                <h3>New Debt</h3>
                 
                 <form onSubmit={e => this.handleSubmit(e)} noValidate autoComplete="off">
                     <TextField onChange={e => this.handleChange(e)} label="Creditor" name="creditorName" value={this.state.creditorName} required />
@@ -67,4 +66,4 @@ class AddForm extends React.Component {
         )}
     }
 
-export default AddForm;
+export default AddForm

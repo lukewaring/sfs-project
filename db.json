@@ -1,5 +1,5 @@
 {
-  "data": [
+  "debts": [
     {
       "id": 1,
       "creditorName": "CBNA",
@@ -81,9 +81,9 @@
       "balance": 235
     },
     {
-      "creditorName": "Test",
-      "firstName": "Test",
-      "lastName": "Test",
+      "creditorName": "TEST",
+      "firstName": "TEST",
+      "lastName": "TEST",
       "minPaymentPercentage": 1,
       "balance": 100,
       "id": 11
