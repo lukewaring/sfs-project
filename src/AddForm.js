@@ -23,7 +23,7 @@ class AddForm extends React.Component {
         fetch('http://localhost:3001/debts', {
             method: 'POST',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-            body: JSON.stringify({ creditorName: this.state.creditorName, firstName: this.state.firstName, lastName: this.state.lastName, minPaymentPercentage: parseInt(this.state.minPaymentPercentage), balance: parseInt(this.state.balance) })    
+            body: JSON.stringify({ creditorName: this.state.creditorName, firstName: this.state.firstName, lastName: this.state.lastName, minPaymentPercentage: parseFloat(this.state.minPaymentPercentage), balance: parseFloat(this.state.balance) })    
         })
         .then(res => res.json())
         .then(json => console.log(json))
@@ -34,7 +34,7 @@ class AddForm extends React.Component {
             <div style={{ textAlign: 'center' }}>
                 <h3>New Debt</h3>
                 
-                <form onSubmit={e => this.handleSubmit(e)} noValidate autoComplete="off">
+                <form onSubmit={e => this.handleSubmit(e)} autoComplete="off">
                     <TextField onChange={e => this.handleChange(e)} label="Creditor" name="creditorName" value={this.state.creditorName} required />
                     <br></br>
                     <br></br>
@@ -53,10 +53,19 @@ class AddForm extends React.Component {
                     <Button
                         type="submit"
                         variant="contained"
-                        color="secondary"
+                        color="primary"
                         size="large"
+                        style={{ margin: '1rem' }}
                     >
                     Save
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        size="large"
+                        onClick={this.props.toggleForm}
+                    >
+                    Cancel
                     </Button>
                     <br></br>
                     <div></div>
