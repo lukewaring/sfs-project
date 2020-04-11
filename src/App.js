@@ -1,15 +1,15 @@
 import React from 'react'
-import MaterialTable from 'material-table';
+import MaterialTable from 'material-table'
 import Button from '@material-ui/core/Button'
 import AddForm from './AddForm'
 
 class App extends React.Component {
-  state = {
+    state = {
       debts: [],
       isFormVisible: false,
       selectedRowsArr: [],
       selectedRowsTotal: 0
-  }
+    }
   
   componentDidMount() {
       fetch('http://localhost:3001/debts')
@@ -32,24 +32,18 @@ class App extends React.Component {
   }
 
   removeDebt = () => {
-      const lastDebt = this.state.debts.pop()
-      const lastDebtId = lastDebt.id
-      
-      console.log(lastDebtId)
-
-      this.setState({
-        debts: this.state.debts
-      })
-
-      this.deleteDebt(lastDebtId)
+    let selectedRowIds = this.state.selectedRowsArr.map(row => row.id)
+    this.deleteDebt(selectedRowIds)
   }
 
-  deleteDebt(lastDebtId) {
-      fetch(`http://localhost:3001/debts/${lastDebtId}`, {
-          method: 'DELETE',
-          headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
-      })
-      .then(res => res.json())
+  deleteDebt(selectedRowIds, filteredDebts) {
+    selectedRowIds.map(id => fetch(`http://localhost:3001/debts/${id}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    })
+        .then(res => res.json())
+    )
+    window.location.reload(false)
   }
 
   calculateTotal(rows) {
@@ -61,6 +55,10 @@ class App extends React.Component {
   handleStateUpdates(rows) {
       this.setState({ selectedRowsArr: rows })
       this.calculateTotal(rows)
+  }
+
+  addNewDebtToAppState = (newDebt) => {
+    this.setState({ debts: [...this.state.debts, newDebt]})
   }
 
   render() {
@@ -88,13 +86,13 @@ class App extends React.Component {
               />
               <br></br>
 
-              { this.state.isFormVisible ? <AddForm toggleForm={this.toggleForm} styles={"backgroundColor: 'white'"}/> :
+              { this.state.isFormVisible ? <AddForm toggleForm={this.toggleForm}  debts={this.state.debts} addNewDebtToAppState={this.addNewDebtToAppState} styles={"backgroundColor: 'white'"}/> :
                   <Button onClick={this.toggleForm} variant="contained" color="primary">Add Debt</Button>
               }
               <br></br>
               <br></br>
 
-              <Button onClick={this.removeDebt} variant="contained" color="secondary">Remove Last Debt</Button>
+              <Button onClick={this.removeDebt} variant="contained" color="secondary">Remove Debt(s)</Button>
               <br></br>
               <br></br>
 

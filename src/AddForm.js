@@ -18,15 +18,23 @@ class AddForm extends React.Component {
     }
 
     handleSubmit = (e) => {
-        // e.preventDefault()
+        e.preventDefault()
         
         fetch('http://localhost:3001/debts', {
             method: 'POST',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-            body: JSON.stringify({ creditorName: this.state.creditorName, firstName: this.state.firstName, lastName: this.state.lastName, minPaymentPercentage: parseFloat(this.state.minPaymentPercentage), balance: parseFloat(this.state.balance) })    
+            body: JSON.stringify({ 
+                creditorName: this.state.creditorName,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                minPaymentPercentage: parseFloat(this.state.minPaymentPercentage),
+                balance: parseFloat(this.state.balance)
+            })    
         })
         .then(res => res.json())
-        .then(json => console.log(json))
+        .then(newDebt => this.props.addNewDebtToAppState(newDebt))
+
+        this.props.toggleForm()
     }
 
     render() {
