@@ -17,14 +17,6 @@ class App extends React.Component {
       .then(json => this.setState({ debts: json }));
   }
 
-  currencyFormat(num) {
-    return `${num.toFixed(2)}`;
-  }
-
-  percentFormat(num) {
-    return `${num.toFixed(2)}%`;
-  }
-
   toggleForm = () => {
     this.setState(prevState => ({
       isFormVisible: !prevState.isFormVisible
@@ -114,7 +106,6 @@ class App extends React.Component {
         {this.state.isFormVisible ? (
           <AddForm
             toggleForm={this.toggleForm}
-            debts={this.state.debts}
             addNewDebtToAppState={this.addNewDebtToAppState}
             styles={"backgroundColor: 'white'"}
           />
